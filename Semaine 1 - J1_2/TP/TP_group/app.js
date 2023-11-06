@@ -15,7 +15,6 @@ function MakeGroup(array) {
         filterArray(array, eleve1);
         var eleve2 = array[Random(array.length)];
         filterArray(array, eleve2);
-        console.log(eleve2);
         if (eleve2 == undefined || eleve2 == eleve1) {
             finalgroups.push({ élève1: eleve1 });
         }
