@@ -22,4 +22,4 @@ class Thing implements Duck {
 }
 
 let roger: Thing = new Thing("Roger");
-console.log(roger.swim);
+console.log(roger.swim());

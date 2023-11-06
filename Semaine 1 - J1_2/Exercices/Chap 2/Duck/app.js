@@ -18,4 +18,4 @@ var Thing = /** @class */ (function () {
     return Thing;
 }());
 var roger = new Thing("Roger");
-console.log(roger.swim);
+console.log(roger.swim());
