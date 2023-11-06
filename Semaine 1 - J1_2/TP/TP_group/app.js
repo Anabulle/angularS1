@@ -1,4 +1,4 @@
-var students = [12, 11, 123, 8, 9, 100, 90, 23, 22, 99, 198, 202, 11, 19, 78, 112, 45];
+var students = [12, 11, 123, 8, 9, 100, 90, 23, 22, 99, 198, 202, 11, 19, 78, 112, 45, 76, 7512, 565];
 var finalgroups = [];
 function Random(max) {
     return Math.floor(Math.random() * max);
