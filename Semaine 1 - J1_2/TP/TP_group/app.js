@@ -1,4 +1,4 @@
-var students = [12, 11, 123, 8, 9, 100, 90, 23, 22, 99, 198, 202, 11, 19, 78, 112, 45, 76, 7512, 565];
+var students = [12, 11, 123, 8, 9, 100, 90, 23, 22, 99, 198, 202, 11, 19, 78, 112, 45];
 var finalgroups = [];
 function Random(max) {
     return Math.floor(Math.random() * max);
@@ -8,29 +8,23 @@ function filterArray(array, element) {
     var x = array.splice(index, 1);
 }
 function MakeGroup(array) {
-    var i = array.length - 1;
-    var group = [];
+    var i = array.length;
     while (i >= 0) {
         var duo = [];
         var eleve1 = array[Random(array.length)];
-        duo.push(eleve1);
         filterArray(array, eleve1);
         var eleve2 = array[Random(array.length)];
-        if (eleve2 != undefined) {
-            duo.push(eleve2);
-            filterArray(array, eleve2);
+        filterArray(array, eleve2);
+        console.log(eleve2);
+        if (eleve2 == undefined || eleve2 == eleve1) {
+            finalgroups.push({ élève1: eleve1 });
         }
-        group.push(duo);
+        else {
+            finalgroups.push({ élève1: eleve1, élève2: eleve2 });
+        }
         i -= 2;
     }
     return group;
 }
 var group = MakeGroup(students);
-function AddGroup(array) {
-    for (var i = 0; i < array.length; i++) {
-        finalgroups.push({ élève1: array[i][0], élève2: array[i][1] });
-    }
-    return finalgroups;
-}
-var Add = AddGroup(group);
 console.log(finalgroups);
