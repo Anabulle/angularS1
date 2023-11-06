@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TP_Pendu_V1.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="typescript">TypeScript</h1>
+<h3 id="sujet">Sujet</h3>
+<p>Dans un premier temps nous vous proposons le développement d’un jeu du
+pendu en version simplifiée. On vous donne une structure de fichiers et dossiers
+et du code pour commencer celui-ci.</p>
+<p>Le jeu consistera à deviner un mot partiellement caché en un maximum de 7
+coups.</p>
+<p>Créez une constante enum pour la gestion du Status dans le jeu ; définissez par
+exemple 3 constantes : Progress, Loser et Winner.</p>
+<p>Dans cet exercice nous utiliserons Node pour rendre interactif le jeu en console.</p>
+<p>En fin de document vous avez un exemple détaillé de fonctionnement de ce jeu.</p>
+<p>On propose, si vous avez le temps, un exercice facultatif plus complet et donc
+plus complexe à réaliser à la fin de ce document.</p>
+<p><strong>Prérequis techniques : Node et npm doivent être installés sur vos
+machines.</strong></p>
+<h2 id="mise-en-place-de-lexercice">Mise en place de l’exercice</h2>
+<p>Vous devez avoir le module TypeScript d’installé sur vos machines, si ce n’est
+pas déjà fait tapez la ligne suivante :</p>
+<pre class="hljs"><code><div>npm install -g typescript
+</div></code></pre>
+<p>Récupérez les sources pour commencer le jeu et tapez dans la console (nous
+installons les définitions de types Node pour TypeScript) :</p>
+<pre class="hljs"><code><div>npm install
+</div></code></pre>
+<p>Une commande permet également d’installer cette dépendance, dans le cas où
+vous auriez un fichier package.json :</p>
+<pre class="hljs"><code><div>npm install --save @types/node
+</div></code></pre>
+<p>Pour compiler (transpiler) le code vous devez utiliser la commande suivante :</p>
+<pre class="hljs"><code><div>tsc -w
+</div></code></pre>
+<h2 id="pr%C3%A9sentation-de-la-structure-des-dossiers-et-fichiers">Présentation de la structure des dossiers et fichiers</h2>
+<p><img src="../images/arborescence_tp_pendu.png" alt=""></p>
+<p>Dans le fichier app.ts dans les sources nous vous avons écrit la partie flux, à vous
+de mettre toute la logique dans le jeu.</p>
+<h2 id="comment-interagir-avec-la-console">Comment interagir avec la console</h2>
+<p>Voyez le code dans le fichier app.ts du dossier source pour commencer le jeu.</p>
+<h2 id="les-donn%C3%A9es-du-jeu-et-d%C3%A9finition-de-classe">Les données du jeu et définition de classe</h2>
+<p>La classe Word permet de définir un type que nous utiliserons dans la constante
+MockWords, le typage ici indique que cette constante est un tableau de Word :</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> Word {
+    word: <span class="hljs-built_in">string</span>;
+    hide: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> MockWords: Word[] = [
+    { word: <span class="hljs-string">"cornedrue"</span>, hide: <span class="hljs-string">"#o######e"</span> },
+    { word: <span class="hljs-string">"cognards"</span>, hide: <span class="hljs-string">"c######s"</span> },
+    { word: <span class="hljs-string">"fourchelang"</span>, hide: <span class="hljs-string">"########a#g"</span> },
+    { word: <span class="hljs-string">"gringotts"</span>, hide: <span class="hljs-string">"######tts"</span> },
+    { word: <span class="hljs-string">"hyppogriffes"</span>, hide: <span class="hljs-string">"####o######s"</span> },
+];
+</div></code></pre>
+<p>Vous importerez les données dans le fichier app.ts de la manière suivante, notez
+<strong>qu’il faut exporter les données avant de les importer</strong> sans quoi vous ne
+pourrez pas les exploiter dans le fichier app.ts, elles sont scopées dans le
+module data.ts :</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { MockWords } <span class="hljs-keyword">from</span>  <span class="hljs-string">"../data"</span>;
+</div></code></pre>
+<h2 id="la-classe-game">La classe Game</h2>
+<p>Vous ferez au minimum une classe pour implémenter la logique du jeu. Tout doit
+être correctement typé.</p>
+<p>Instance de la classe Game :</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">let</span> game = <span class="hljs-keyword">new</span> Game(MockWords); <span class="hljs-comment">// on passe les mots à l'objet Game pour initialiser le jeu</span>
+</div></code></pre>
+<p>La méthode run de la classe Game est la méthode « centrale » qui permettra de
+mettre une grande partie de la logique du jeu.</p>
+<h2 id="variable-enum-status">Variable enum Status</h2>
+<p>La variable Status est particulière, en effet nous avons fait le choix d’utiliser un
+enum en TypeScript. Ce dernier permet de définir une collection de constantes,
+nous l’utiliserons pour définir l’état du jeu :</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Enum </span>
+<span class="hljs-keyword">enum</span> Status {
+    Winner,
+    Loser,
+    Progress,
+}
+
+<span class="hljs-keyword">let</span> something: Status; <span class="hljs-comment">// définition d'une variable  de type Status</span>
+something = Status.Winner; <span class="hljs-comment">// on assigne une valeur</span>
+
+<span class="hljs-comment">// Pour la comparaison utiliser l'alias "as" sinon erreur de type lors de la transpilation</span>
+<span class="hljs-comment">// vers le code JS</span>
+Status.Progress <span class="hljs-keyword">as</span> Status == something;
+Status.Winner <span class="hljs-keyword">as</span> Status == something;
+Status.Loser <span class="hljs-keyword">as</span> Status == something;
+</div></code></pre>
+<h2 id="le-fichier-appts">Le fichier app.ts</h2>
+<p>C’est le boostrap de votre application, vous testerez le jeu en console à partir de
+ce fichier.</p>
+<h2 id="exemple-dinteraction-dans-la-console">Exemple d’interaction dans la console</h2>
+<p>Lancer le jeu en console</p>
+<p><img src="../images/start_tp_pendu_console.png" alt=""></p>
+<p>On peut alors proposer des mots pour deviner le mot caché :</p>
+<p><img src="../images/progress_tp_pendu_console.png" alt=""></p>
+<p>Une fois le mot deviné le jeu s’arrête :</p>
+<p><img src="../images/end_tp_pendu_console.png" alt=""></p>
+<h2 id="partie-facultative">Partie facultative</h2>
+<p>Vous pouvez améliorer le jeu en proposant les options suivantes, dans ce cas
+créez un autre dossier pendu_optionals :</p>
+<ul>
+<li>Donnez la possibilité de choisir des lettres ou des mots.</li>
+<li>Enregistrez dans une classe Player ou User le pseudo et le score d’un
+joueur et donnez la possibilité de rejouer.</li>
+<li>Mémorisez les lettres déjà jouées et si l’utilisateur propose la même lettre
+ne pas décompter les coups avant arrêt du jeu.</li>
+<li>Créez une méthode permettant de cacher le mot automatiquement (dans
+ce cas retirez l’attribut hide dans la classe Word).</li>
+</ul>
+
+</body>
+</html>
