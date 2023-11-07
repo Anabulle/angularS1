@@ -12,6 +12,12 @@ var Queue = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Queue.prototype.push = function (a) {
+        this.queue.push(a);
+    };
+    Queue.prototype.pop = function () {
+        return this.queue.shift();
+    };
     return Queue;
 }());
 var queue = new Queue();

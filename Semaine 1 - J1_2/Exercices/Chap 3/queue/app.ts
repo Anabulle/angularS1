@@ -8,6 +8,13 @@ class Queue<T>{
     get _queue(): T[] {
         return this._queue;
     }
+    push(a: T): void {
+        this.queue.push(a);
+    }
+
+    pop(): T | undefined {
+        return this.queue.shift();
+    }
 }
 
 
