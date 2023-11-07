@@ -8,7 +8,7 @@ class Queue<T>{
     get _queue(): T[] {
         return this._queue;
     }
-    push(a: T): void {
+    push(a: T) {
         this.queue.push(a);
     }
 
