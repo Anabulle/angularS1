@@ -9,8 +9,4 @@ const products: Array<Product<Details, Delivery>> = MockDetails.map((detail) => 
     return new Product(detail, deliver ? deliver.delivery : Delivery.DoorToDoor);
 });
 
-const specialProduct: Array<Product<Details, Delivery>> = products.filter((product) => {
-    return product.option === Delivery.Special;
-});
-
-console.log(specialProduct);
+console.log(products)

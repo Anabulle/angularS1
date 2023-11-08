@@ -8,7 +8,4 @@ const products = MockProducts_1.MockDetails.map((detail) => {
     let deliver = MockProducts_1.MockDelivery.find((delivery) => delivery.id == detail.id);
     return new Product_1.Product(detail, deliver ? deliver.delivery : MockProducts_1.Delivery.DoorToDoor);
 });
-const specialProduct = products.filter((product) => {
-    return product.option === MockProducts_1.Delivery.Special;
-});
-console.log(specialProduct);
+console.log(products);
