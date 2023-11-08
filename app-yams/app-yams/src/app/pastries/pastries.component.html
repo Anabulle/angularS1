@@ -1,14 +1,14 @@
 <h1>{{ titlePage }}</h1>
 <ul *ngIf="pastries" class="list">
     <li class="list-item" *ngFor="let pastrie of pastries">
-        <h2>{{ pastrie.name }}</h2>
-        <article>
+        <h2 class="m-2">{{ pastrie.name }}</h2>
+        <article class="m-2">
             {{pastrie.description}}
         </article>
-        <div>
-            {{ pastrie.tags }}
-        </div>
-        <div> ♥ {{ pastrie.like }} ◄ {{pastrie.quantity}} unités disponibles</div>
-        
+    <span class="bg-info text-light m-4 p-1 rounded" *ngFor="let tag of pastrie.tags">
+        {{ tag }}
+    </span>
+    <div class="m-2"> ♥ {{ pastrie.like }} ◄ {{pastrie.quantity}} unités disponibles</div>
+
     </li>
 </ul>
