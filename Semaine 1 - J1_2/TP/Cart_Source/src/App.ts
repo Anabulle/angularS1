@@ -6,7 +6,7 @@ import { Details, Delivery, MockDetails, MockDelivery } from './data/MockProduct
 
 const products: Array<Product<Details, Delivery>> = MockDetails.map((detail) => {
     let deliver = MockDelivery.find((delivery) => delivery.id == detail.id);
-    return new Product(detail, deliver ? deliver.delivery : Delivery.DoorToDoor);
+    return new Product(detail, deliver);
 });
 
 console.log(products)

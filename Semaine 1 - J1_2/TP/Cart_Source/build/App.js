@@ -6,6 +6,6 @@ const Product_1 = require("./Product");
 const MockProducts_1 = require("./data/MockProducts");
 const products = MockProducts_1.MockDetails.map((detail) => {
     let deliver = MockProducts_1.MockDelivery.find((delivery) => delivery.id == detail.id);
-    return new Product_1.Product(detail, deliver ? deliver.delivery : MockProducts_1.Delivery.DoorToDoor);
+    return new Product_1.Product(detail, deliver);
 });
 console.log(products);
