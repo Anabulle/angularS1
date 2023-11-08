@@ -33,3 +33,4 @@ function MakeGroup(array: number[]) {
 let group = MakeGroup(students);
 
 console.log(finalgroups);
+
