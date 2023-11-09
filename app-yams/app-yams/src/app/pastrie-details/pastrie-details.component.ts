@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pastrie, List } from '../pastrie';
 import { INGREDIENTS_LISTS } from '../mock-pastries';
 import { query } from '@angular/animations';
@@ -13,8 +13,8 @@ export class PastrieDetailsComponent implements OnInit {
   // Classe Input permet de récupérer les data de l'enfant
   // pastrie est liée à une entrée [pastrie] du parent dans le sélecteur
   @Input() pastrie: Pastrie | null = null;
-  ingredientsLists: string[]| null = null;
-
+  ingredientsLists: string[] | null = null;
+  @Output() changePreference: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -32,6 +32,11 @@ export class PastrieDetailsComponent implements OnInit {
     const element = document.querySelector(".desc");
     if (element) {
       element.classList.toggle("d-none");
+    }
+  }
+  preference(id: string | null = null) {
+    if (id != null) {
+      this.changePreference.emit(id); // émettre l'id de la pâtisserie vers le parent
     }
   }
 }

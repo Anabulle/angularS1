@@ -1,11 +1,12 @@
 <h1>{{ titlePage }}</h1>
 
 <div class="row content">
+    <div appBorderCard="red"> test </div>
     <div class="col-sm-4 video">
-        <!-- PastrieDetails communication parent vers enfant -->
-        <app-pastrie-details [pastrie]="selectedPastrie"></app-pastrie-details>
+        <app-pastrie-details [pastrie]="selectedPastrie" (changePreference)="changeParentPreference($event)">
+        </app-pastrie-details>
     </div>
-    <div *ngIf="pastries" class="col-sm-6">
+    <div *ngIf="pastries" class="col-sm-7">
         <div *ngFor="let pastrie of pastries" class="card">
             <div class="card-header">
                 Pâtisserie glacée
@@ -24,6 +25,7 @@
                 <small>4 unités disponibles</small>
                 <br>
                 <button class="bg-info text-light m-4 p-1 rounded" (click)="OnSelect(pastrie)">en savoir plus</button>
+                
             </div>
         </div>
     </div>

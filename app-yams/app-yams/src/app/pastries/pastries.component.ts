@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Importez la définition de la classe et les pâtisseries
 import { Pastrie } from '../pastrie';
-import { INGREDIENTS_LISTS, PASTRIES } from '../mock-pastries';
-import { List } from '../pastrie';
+import { PASTRIES } from '../mock-pastries';
 
 @Component({
   selector: 'app-pastries',
@@ -12,9 +11,12 @@ import { List } from '../pastrie';
 })
 
 export class PastriesComponent implements OnInit {
-  selectedPastrie: Pastrie = PASTRIES[1];
+  selectedPastrie: Pastrie | null = null;
   titlePage: string = "Page principale : liste des pâtisseries à gagner";
   pastries: Pastrie[] = PASTRIES;
+  choicePastries = [] ;
+  maxSelections = 3; // Nombre maximal de pâtisseries à sélectionner
+  buttonDisabled = false; // Indicateur pour désactiver le bouton après la sélection
 
   constructor() { }
 
@@ -23,5 +25,16 @@ export class PastriesComponent implements OnInit {
   OnSelect(pastrie: Pastrie) {
     console.log(pastrie);
     this.selectedPastrie = pastrie;
+  }
+  changeParentPreference(pastrieId: string) {
+    // Réagir à l'événement ici en utilisant l'ID de la pâtisserie
+    console.log(`ID de la pâtisserie sélectionnée : ${pastrieId}`);
+    
+  const selectPastrie = this.pastries.find(pastrie => pastrie.id === pastrieId);
+
+  if (!selectPastrie) {
+    return; 
+  }
+
   }
 }
