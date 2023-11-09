@@ -3,17 +3,14 @@
 import { Product } from "./Product"
 import { Details, Delivery, MockDetails, MockDelivery } from './data/MockProducts';
 
+const products: Array<Product<Details, Delivery>> = [];
 
-const products: Array<Product<Details, Delivery>> = MockDetails.map((detail) => {
-    let deliver = MockDelivery.find((delivery) => delivery.id == detail.id);
-    return new Product(detail, deliver ? deliver.delivery : Delivery.DoorToDoor);
-});
+MockDetails.forEach((element) =>{
 
-const specialProduct: Array<Product<Details, Delivery>> = products.filter((product) => {
-    return product.option === Delivery.Special;
-});
+    
+})
 
-console.log(products);
+
 // je vais t'aider un peu en te donnant la liste des étapes : 
 // - Étape 1: Associez chaque détail avec sa livraison correspondante.
 // Trouvez la livraison qui correspond à l'ID du détail.

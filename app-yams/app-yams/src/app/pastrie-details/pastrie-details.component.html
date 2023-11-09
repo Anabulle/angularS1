@@ -1,0 +1,16 @@
+<p>pastrie-details works!</p>
+
+<div>
+    <div  class="card">
+        <img class="card-img-top" src="./assets/images/default_image.png" alt="Pastry Category">
+        <div class="card-body">
+            <h5 class="card-title"></h5>
+            <p class="card-text"> {{pastrie?.name}}</p>
+            <button class="btn btn-primary" (click)="onDisplay()"> Desc >> </button>
+            <div class="desc d-none" > {{pastrie?.description}} </div>
+        </div>
+        <ul class="list-group" *ngFor="let ingredient of ingredientsLists">
+            <li class="list-group-item">{{ingredient}}</li>
+        </ul>
+    </div>
+</div>
