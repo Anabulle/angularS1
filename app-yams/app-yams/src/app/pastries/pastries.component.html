@@ -1,32 +1,37 @@
 <h1>{{ titlePage }}</h1>
+<app-search (searchResultsEvent)="handleSearchResults($event)"></app-search>
 
 <div class="row content">
-    <div appBorderCard="red"> test </div>
-    <div class="col-sm-4 video">
-        <app-pastrie-details [pastrie]="selectedPastrie" (changePreference)="changeParentPreference($event)">
-        </app-pastrie-details>
+  <div appBorderCard="color"> test </div>
+  <div class="col-sm-4 video">
+    <app-pastrie-details [pastrie]="selectedPastrie" (changePreference)="changeParentPreference($event)">
+    </app-pastrie-details>
+  </div>
+
+  <div class="col-sm-7">
+    <!-- Afficher les résultats de la recherche ou la liste complète des pâtisseries -->
+    <div *ngFor="let pastrie of displayPastries()" class="card">
+      <div class="card-header">
+        Pâtisserie glacée
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ pastrie.name }}</h5>
+        <p class="card-text">{{pastrie.description}}</p>
+        <span class="m-4 p-1 rounded {{tag | pastrieTagColor}}" *ngFor="let tag of pastrie.tags">
+          {{ tag }}
+        </span>
+        <br>
+        <a class="btn btn-outline-dark m-4" href="#" role="button">us</a>
+        <small>♥ 3</small>
+        <small> ► 4 unités disponibles</small>
+        <br>
+        <button class="bg-info text-light m-4 p-1 rounded" (click)="OnSelect(pastrie)">en savoir plus</button>
+      </div>
     </div>
-    <div *ngIf="pastries" class="col-sm-7">
-        <div *ngFor="let pastrie of pastries" class="card">
-            <div class="card-header">
-                Pâtisserie glacée
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ pastrie.name }}</h5>
-                <p class="card-text">{{pastrie.description}}</p>
-                <span class="bg-info text-light m-4 p-1 rounded" *ngFor="let tag of pastrie.tags">
-                    {{ tag }}
-                </span>
-                <br>
-                <a class="btn btn-outline-dark m-4" href="#" role="button">us</a>
-                <img class="glyph-icon m-4" src="./assets/svg/si-glyph-heart.svg" />
-                <small>3</small>
-                <img class="glyph-icon m-4" src="./assets/svg/si-glyph-triangle-double-arrow-right.svg" />
-                <small>4 unités disponibles</small>
-                <br>
-                <button class="bg-info text-light m-4 p-1 rounded" (click)="OnSelect(pastrie)">en savoir plus</button>
-                
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
+
+
+
+
+

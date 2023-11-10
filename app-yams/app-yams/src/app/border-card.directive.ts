@@ -16,6 +16,6 @@ export class BorderCardDirective {
   }
 
 @HostListener('click') onClick() {
-    this.setBorder('red');
+    this.setBorder('yellow');
   }
 }

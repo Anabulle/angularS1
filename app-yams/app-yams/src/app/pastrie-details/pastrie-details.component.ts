@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pastrie, List } from '../pastrie';
 import { INGREDIENTS_LISTS } from '../mock-pastries';
-import { query } from '@angular/animations';
+import { PastrieService } from '../pastrie.service';
 
 @Component({
   selector: 'app-pastrie-details',
@@ -19,7 +19,7 @@ export class PastrieDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.pastrie); // pour l'instant c'est undefined ... C'est normal
+    
   }
   ngOnChanges() {
     INGREDIENTS_LISTS.forEach(ingredient => {
@@ -40,3 +40,5 @@ export class PastrieDetailsComponent implements OnInit {
     }
   }
 }
+
+// faire une directive disables pour le bouton qui permet d arreter des bouttons directive etant un coposant recuperer de la meme manière que pour les composants 
