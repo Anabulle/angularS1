@@ -25,7 +25,7 @@ export class PastriesComponent implements OnInit {
 
 
   ngOnInit() { 
-    console.log("le nombre de patisserie :", this.pastrieService.count()) 
+
   }
 
   OnSelect(pastrie: Pastrie) {
