@@ -18,14 +18,14 @@ const users = [
 
 
 
-const usersObservable = from(users);
+const sortedUsers = users.sort((a, b) => b.score - a.score);
 
+const usersObservable = from(sortedUsers);
 
 usersObservable.pipe(
-    map(users => users.sort((a, b) => b.score - a.score)),
     map(user => ({ ...user, name: user.name.charAt(0).toUpperCase() + user.name.slice(1) })),
     filter(user => user.score > 100),
 ).subscribe({
-    next: (user) => { console.log(user); }, complete: () => { console.log("Fin de liste"); }
+    next: (user) => { console.log(user); },
+    complete: () => { console.log("Fin de liste"); }
 });
-
