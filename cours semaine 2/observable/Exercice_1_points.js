@@ -10,11 +10,10 @@ const source = of(
 );
 
 // Mapping data  TODO Filtre
-function distanceFromOrigin(point) {
-    return Math.sqrt(point.x ** 2 + point.y ** 2);
-  }
-  
-const numbers = Observable.create((observer) => {
 
-  });
+  
+const distance = source.pipe(
+  max(Math.sqrt(x ** 2 + y ** 2))
+)
+distance.subscribe(console.log)
 // S'inscrire TODO Afficher les données
