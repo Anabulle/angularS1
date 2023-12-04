@@ -13,7 +13,13 @@ const source = of(
 
   
 const distance = source.pipe(
-  max(Math.sqrt(x ** 2 + y ** 2))
+  max((a, b) => {
+    const distanceA = Math.sqrt(a.x ** 2 + a.y ** 2); 
+    const distanceB = Math.sqrt(b.x ** 2 + b.y ** 2); 
+    return distanceA - distanceB;
+  })
 )
-distance.subscribe(console.log)
+distance.subscribe(result => {
+  console.log("Le point le plus éloigné est :", result);
+});
 // S'inscrire TODO Afficher les données
