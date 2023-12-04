@@ -1,3 +1,5 @@
+// app.module.ts
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +10,7 @@ import { PastrieDetailsComponent } from './pastrie-details/pastrie-details.compo
 import { BorderCardDirective } from './border-card.directive';
 import { PastryTagColorPipe } from './pastry-tag-color.pipe';
 import { SearchComponent } from './search/search.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +19,13 @@ import { SearchComponent } from './search/search.component';
     PastrieDetailsComponent,
     BorderCardDirective,
     PastryTagColorPipe,
-    SearchComponent
+    SearchComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule // importez le module
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
