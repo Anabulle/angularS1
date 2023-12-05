@@ -1,5 +1,6 @@
 <h1>{{ titlePage }}</h1>
 <app-search (searchResultsEvent)="handleSearchResults($event)"></app-search>
+<app-paginate></app-paginate>
 
 <div class="row content">
   <div appBorderCard="color"> test </div>
@@ -25,7 +26,7 @@
         <small>♥ 3</small>
         <small> ► 4 unités disponibles</small>
         <br>
-        <button class="bg-info text-light m-4 p-1 rounded" (click)="OnSelect(pastrie)">en savoir plus</button>
+        <button class="bg-info text-light m-4 p-1 rounded" (click)="onSelect(pastrie)">en savoir plus</button>
       </div>
     </div>
   </div>

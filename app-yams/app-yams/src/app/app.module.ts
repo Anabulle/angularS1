@@ -11,6 +11,7 @@ import { BorderCardDirective } from './border-card.directive';
 import { PastryTagColorPipe } from './pastry-tag-color.pipe';
 import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
+import { PaginateComponent } from './paginate/paginate.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './login/login.component';
     BorderCardDirective,
     PastryTagColorPipe,
     SearchComponent,
-    LoginComponent
+    LoginComponent,
+    PaginateComponent
   ],
   imports: [
     BrowserModule,
