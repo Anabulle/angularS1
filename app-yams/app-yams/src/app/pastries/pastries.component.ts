@@ -1,66 +1,66 @@
 import { Component, OnInit } from '@angular/core';
-import { PastrieService } from '../pastrie.service';
+import { PastrieService } from '../pastrie.service'
+// Importez la définition de la classe et les pâtisseries
 import { Pastrie } from '../pastrie';
-import { PaginationService } from '../pagination.service';
+import { PASTRIES } from '../mock-pastries';
 
 @Component({
   selector: 'app-pastries',
   templateUrl: './pastries.component.html',
   styleUrls: ['./pastries.component.scss']
 })
+
 export class PastriesComponent implements OnInit {
-  perPage = 5;
-  currentPage = 1;
-  paginatedPastries: Pastrie[] = [];
-  allPastries: Pastrie[] = [];
   selectedPastrie: Pastrie | null = null;
+  titlePage: string = "Page principale : liste des pâtisseries à gagner";
+  choicePastries: [] = [];
+  maxSelections = 3; // Nombre maximal de pâtisseries à sélectionner
+  buttonDisabled = false; // Indicateur pour désactiver le bouton après la sélection
+  searchResults: Pastrie[] = [];
+  pastries: Pastrie[] = [];
+  currentPage = 1;
+  perPage = 5;
+  paginatedPastries: any[] = [];
 
-  constructor(
-    private pastrieService: PastrieService,
-    private paginationService: PaginationService
-  ) {}
+  constructor(private pastrieService: PastrieService) {
+    this.pastries = pastrieService.getPastries()
+  }
 
-  ngOnInit(): void {
+
+  ngOnInit(): void { 
     this.loadPastries();
   }
 
+  onSelect(pastrie: Pastrie) {
+    this.selectedPastrie = pastrie;
+  }
+  changeParentPreference(pastrieId: string) {
+    // Réagir à l'événement ici en utilisant l'ID de la pâtisserie
+    console.log(`ID de la pâtisserie sélectionnée : ${pastrieId}`);
+
+    const selectPastrie = this.pastries.find(pastrie => pastrie.id === pastrieId);
+
+    if (!selectPastrie) {
+      return;
+    }
+
+  }
   loadPastries(): void {
-    this.allPastries = this.pastrieService.getPastries();
+    this.pastries = this.pastrieService.getPastries();
     this.paginate(this.currentPage);
   }
 
   paginate(page: number): void {
-    // Utilisez votre service de pagination pour obtenir les données paginées
-    this.paginatedPastries = this.paginationService.paginate(this.allPastries, page, this.perPage);
+    this.paginatedPastries = this.pastrieService.paginate(page, this.perPage); // Utiliser le service pour paginer les données
   }
 
-  next(): void {
-    if (this.currentPage < Math.ceil(this.allPastries.length / this.perPage)) {
-      this.currentPage++;
-      this.paginate(this.currentPage);
-    }
+  handlePageChange(page: number): void {
+    this.paginate(page);
   }
-
-  previous(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.paginate(this.currentPage);
-    }
+  handleSearchResults(results: Pastrie[]) {
+    this.searchResults = results;
   }
-
-  onSelect(pastrie: Pastrie): void {
-    // Logique pour sélectionner une pâtisserie
-  }
-
-  changeParentPreference(pastrieId: string): void {
-    // Logique pour changer la préférence parent
-  }
-
-  handleSearchResults(results: Pastrie[]): void {
-    // Logique pour gérer les résultats de recherche
-  }
-
   displayPastries(): Pastrie[] {
-    return this.paginatedPastries;
+    return this.searchResults.length > 0 ? this.searchResults : this.pastries;
   }
 }

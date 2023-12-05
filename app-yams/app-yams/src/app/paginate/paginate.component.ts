@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PaginationService } from '../pagination.service';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-paginate',
@@ -9,28 +8,26 @@ import { PaginationService } from '../pagination.service';
 export class PaginateComponent implements OnInit {
   @Input() data: any[] = [];
   @Input() perPage = 5;
+  @Output() pageChange = new EventEmitter<number>();
 
   currentPage = 1;
   paginatedData: any[] = [];
-
-  constructor(private paginationService: PaginationService) {}
 
   ngOnInit(): void {
     this.paginate();
   }
 
   paginate(): void {
-    this.paginatedData = this.paginationService.paginate(
-      this.data,
-      this.currentPage,
-      this.perPage
-    );
+    const startIndex = (this.currentPage - 1) * this.perPage;
+    const endIndex = startIndex + this.perPage;
+    this.paginatedData = this.data.slice(startIndex, endIndex);
   }
 
   next(): void {
     if (this.currentPage < this.getTotalPages()) {
       this.currentPage++;
       this.paginate();
+      this.pageChange.emit(this.currentPage);
     }
   }
 
@@ -38,6 +35,7 @@ export class PaginateComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.paginate();
+      this.pageChange.emit(this.currentPage);
     }
   }
 

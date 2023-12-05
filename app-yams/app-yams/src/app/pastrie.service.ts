@@ -35,4 +35,9 @@ export class PastrieService {
       pastrie.name.toLowerCase().includes(lowercaseKeyword)
     );
   }
+  paginate(page: number, perPage: number): Pastrie[] {
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return this.pastries.slice(start, end);
+  }
 }
