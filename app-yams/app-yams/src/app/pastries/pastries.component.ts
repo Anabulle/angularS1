@@ -9,12 +9,11 @@ import { PaginationService } from '../pagination.service';
   styleUrls: ['./pastries.component.scss']
 })
 export class PastriesComponent implements OnInit {
-  selectedPastrie: Pastrie | null = null;
-  titlePage = "Page principale : liste des pâtisseries à gagner";
-  paginatedPastries: Pastrie[] = [];
+  perPage = 5;
   currentPage = 1;
-  perPage = 5; // Nombre de pâtisseries par page
-  totalPastries = 0; // Nombre total de pâtisseries
+  paginatedPastries: Pastrie[] = [];
+  allPastries: Pastrie[] = [];
+  selectedPastrie: Pastrie | null = null;
 
   constructor(
     private pastrieService: PastrieService,
@@ -26,43 +25,39 @@ export class PastriesComponent implements OnInit {
   }
 
   loadPastries(): void {
-    const allPastries = this.pastrieService.getPastries();
-    this.totalPastries = allPastries.length;
-    this.paginationService.setPastries(allPastries);
+    this.allPastries = this.pastrieService.getPastries();
     this.paginate(this.currentPage);
   }
 
   paginate(page: number): void {
-    this.paginatedPastries = this.paginationService.paginate(page, this.perPage);
+    // Utilisez votre service de pagination pour obtenir les données paginées
+    this.paginatedPastries = this.paginationService.paginate(this.allPastries, page, this.perPage);
   }
 
   next(): void {
-    if (this.currentPage < Math.ceil(this.totalPastries / this.perPage)) {
-      this.paginate(++this.currentPage);
+    if (this.currentPage < Math.ceil(this.allPastries.length / this.perPage)) {
+      this.currentPage++;
+      this.paginate(this.currentPage);
     }
   }
 
   previous(): void {
     if (this.currentPage > 1) {
-      this.paginate(--this.currentPage);
+      this.currentPage--;
+      this.paginate(this.currentPage);
     }
   }
 
   onSelect(pastrie: Pastrie): void {
-    this.selectedPastrie = pastrie;
+    // Logique pour sélectionner une pâtisserie
   }
 
   changeParentPreference(pastrieId: string): void {
-    console.log(`ID de la pâtisserie sélectionnée : ${pastrieId}`);
-    const selectPastrie = this.paginatedPastries.find(pastrie => pastrie.id === pastrieId);
-    if (!selectPastrie) {
-      return;
-    }
+    // Logique pour changer la préférence parent
   }
 
   handleSearchResults(results: Pastrie[]): void {
-    this.paginatedPastries = results;
-    this.currentPage = 1; // Réinitialiser la page actuelle à 1 après une recherche
+    // Logique pour gérer les résultats de recherche
   }
 
   displayPastries(): Pastrie[] {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PaginationService } from '../pagination.service';
 
 @Component({
@@ -7,31 +7,41 @@ import { PaginationService } from '../pagination.service';
   styleUrls: ['./paginate.component.css']
 })
 export class PaginateComponent implements OnInit {
+  @Input() data: any[] = [];
+  @Input() perPage = 5;
+
   currentPage = 1;
-  perPage = 5; // Nombre de pâtisseries par page
-  totalPastries = 0; // Nombre total de pâtisseries
-  paginatedPastries: any[] = []; // Liste de pâtisseries paginées
+  paginatedData: any[] = [];
 
   constructor(private paginationService: PaginationService) {}
 
   ngOnInit(): void {
-    this.totalPastries = this.paginationService.pastries.length;
-    this.paginate(this.currentPage);
+    this.paginate();
   }
 
-  paginate(page: number): void {
-    this.paginatedPastries = this.paginationService.paginate(page, this.perPage);
+  paginate(): void {
+    this.paginatedData = this.paginationService.paginate(
+      this.data,
+      this.currentPage,
+      this.perPage
+    );
   }
 
   next(): void {
-    if (this.currentPage < Math.ceil(this.totalPastries / this.perPage)) {
-      this.paginate(++this.currentPage);
+    if (this.currentPage < this.getTotalPages()) {
+      this.currentPage++;
+      this.paginate();
     }
   }
 
   previous(): void {
     if (this.currentPage > 1) {
-      this.paginate(--this.currentPage);
+      this.currentPage--;
+      this.paginate();
     }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.data.length / this.perPage);
   }
 }

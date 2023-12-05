@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Pastrie } from '../app/pastrie'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaginationService {
-  pastries: Pastrie[] = []; // Votre liste de pâtisseries
+  constructor() {}
 
-  setPastries(pastries: Pastrie[]): void {
-    this.pastries = pastries;
-  }
-
-  paginate(page: number, perPage: number): Pastrie[] {
-    const startIndex = (page - 1) * perPage;
-    return this.pastries.slice(startIndex, startIndex + perPage);
+  paginate(data: any[], page: number, perPage: number): any[] {
+    // Logique de pagination
+    const start = (page - 1) * perPage;
+    const end = start + perPage;
+    return data.slice(start, end);
   }
 }
