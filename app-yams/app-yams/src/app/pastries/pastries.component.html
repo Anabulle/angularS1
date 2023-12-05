@@ -1,23 +1,30 @@
 <h1>{{ titlePage }}</h1>
 <app-search (searchResultsEvent)="handleSearchResults($event)"></app-search>
-<app-paginate></app-paginate>
 
 <div class="row content">
+  <!-- Pagination -->
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" (click)="previous()">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" (click)="next()">Next</a>
+    </li>
+  </ul>
   <div appBorderCard="color"> test </div>
   <div class="col-sm-4 video">
     <app-pastrie-details [pastrie]="selectedPastrie" (changePreference)="changeParentPreference($event)">
     </app-pastrie-details>
   </div>
-
   <div class="col-sm-7">
     <!-- Afficher les résultats de la recherche ou la liste complète des pâtisseries -->
-    <div *ngFor="let pastrie of displayPastries()" class="card">
+    <div *ngFor="let pastrie of paginatedPastries" class="card">
       <div class="card-header">
         Pâtisserie glacée
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ pastrie.name }}</h5>
-        <p class="card-text">{{pastrie.description}}</p>
+        <p class="card-text">{{ pastrie.description }}</p>
         <span class="m-4 p-1 rounded {{tag | pastrieTagColor}}" *ngFor="let tag of pastrie.tags">
           {{ tag }}
         </span>
@@ -29,10 +36,7 @@
         <button class="bg-info text-light m-4 p-1 rounded" (click)="onSelect(pastrie)">en savoir plus</button>
       </div>
     </div>
+
+
   </div>
 </div>
-
-
-
-
-

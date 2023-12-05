@@ -1,7 +1,10 @@
 <p>paginate works!</p>
-<div>
-    <button (click)="previous()">Previous</button>
-    <button (click)="next()">Next</button>
-  </div>
-  <div *ngFor="let pastry of paginatedPastries">
-  </div>
+
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" (click)="previous()">Previous</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" (click)="next()">Next</a>
+    </li>
+  </ul>
