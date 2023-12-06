@@ -9,6 +9,6 @@ export class EtudiantService {
   constructor(private http: HttpClient) { }
   
   getEtudiants() {
-    return this.http.get('http://localhost:3000/etudiants');
+    return this.http.get('http://localhost:3100/etudiants');
   }
 }

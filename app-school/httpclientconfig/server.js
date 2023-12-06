@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost/ecole', { useNewUrlParser: true, useUnifie
 app.use(express.json());
 
 // Démarrage du serveur
-const PORT = 3000;
+const PORT = 3100;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
