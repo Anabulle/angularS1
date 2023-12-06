@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chap15.03_TP.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="tp-mongodb--rxjs">TP MongoDB &amp; RXJS</h1>
+<h2 id="partie-1--configuration-de-mongodb">Partie 1 : Configuration de MongoDB</h2>
+<ul>
+<li>
+<p>Accéder à MongoDB en exécutant la commande <strong>mongosh</strong>. Cela ouvrira l'interface de ligne de commande de MongoDB.</p>
+</li>
+<li>
+<p>Créer une nouvelle base de données nommée ecole en utilisant la commande :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">use</span> ecole
+</div></code></pre>
+<p><em>Cette commande crée la base de données si elle n'existe pas et y accède.</em></p>
+<ul>
+<li>Créer une collection nommée etudiants dans la base de données ecole. Utiliser la commande :</li>
+</ul>
+<pre class="hljs"><code><div>db.createCollection(<span class="hljs-string">"etudiants"</span>)
+</div></code></pre>
+<ul>
+<li>Insérer quelques documents (enregistrements) dans la collection etudiants. Chaque document représente un étudiant. Utiliser la commande suivante pour insérer un étudiant :</li>
+</ul>
+<pre class="hljs"><code><div>db.etudiants.insert({ nom: <span class="hljs-string">"Doe"</span>, prenom: <span class="hljs-string">"John"</span>, classe: <span class="hljs-string">"3A"</span> })
+</div></code></pre>
+<ul>
+<li>
+<p>Répéter l'insertion avec différentes valeurs pour nom, prenom, et classe pour ajouter plusieurs étudiants.</p>
+</li>
+<li>
+<p>Vérifier les données insérées en exécutant la commande :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>db.etudiants.find().pretty()
+</div></code></pre>
+<h2 id="partie-2">Partie 2 :</h2>
+<ul>
+<li>
+<p>Créer un nouveau projet Angular <em>ecole-app</em>, avec un système de rooting et un style scss</p>
+</li>
+<li>
+<p>Importer le HttpClientModule au sein du app.module.ts</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { HttpClientModule } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+</div></code></pre>
+<ul>
+<li>Ajouter HttpClientModule aux imports du @NgModule :</li>
+</ul>
+<pre class="hljs"><code><div>imports: [
+  BrowserModule,
+  AppRoutingModule,
+  HttpClientModule  <span class="hljs-comment">// Ajouter cette ligne</span>
+],
+</div></code></pre>
+<ul>
+<li>Créer un service pour interagir avec le Backend :</li>
+</ul>
+<pre class="hljs"><code><div>ng generate service etudiant
+</div></code></pre>
+<ul>
+<li>Ouvrir le service généré, et y ajouter le HttpClient :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { HttpClient } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/common/http'</span>;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> http: HttpClient</span>) { }
+</div></code></pre>
+<h2 id="partie-3-integration-de-httpclient-avec-mongodb">Partie 3 Integration de HttpClient avec MongoDB</h2>
+<h3 id="configuration-initiale">Configuration initiale :</h3>
+<ul>
+<li>
+<p>Créer un <strong>nouveau</strong> dossier à côté du dossier de l'application ecole-app</p>
+</li>
+<li>
+<p>à l'aide d'un terminal, rendez vous dans le projet et initalisez un nouveau projet NodeJS :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>npm init -y
+</div></code></pre>
+<ul>
+<li>Installer express et Mongoose :</li>
+</ul>
+<pre class="hljs"><code><div>npm install express mongoose
+</div></code></pre>
+<ul>
+<li>Créer un nouveau fichier <strong>server.js</strong> dans ce dossier, qui sera le point d'entrée de l'application backend.</li>
+</ul>
+<h3 id="configuration-du-serveur-express">Configuration du Serveur Express</h3>
+<ul>
+<li>Ouvrir <strong>server.js</strong> et coller y le code suivant pour configurer un serveur Express basique :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+<span class="hljs-keyword">const</span> app = express();
+
+<span class="hljs-comment">// Connexion à MongoDB</span>
+mongoose.connect(<span class="hljs-string">'mongodb://localhost/ecole'</span>, { <span class="hljs-attr">useNewUrlParser</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">useUnifiedTopology</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// Middleware pour parser le JSON</span>
+app.use(express.json());
+
+<span class="hljs-comment">// Démarrage du serveur</span>
+<span class="hljs-keyword">const</span> PORT = <span class="hljs-number">3000</span>;
+app.listen(PORT, () =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Serveur démarré sur le port <span class="hljs-subst">${PORT}</span>`</span>);
+});
+</div></code></pre>
+<h3 id="cr%C3%A9ation-dun-mod%C3%A8le-mongoose-et-dune-route-api">Création d'un modèle Mongoose et d'une route API</h3>
+<ul>
+<li>Créer un modèle Mongoose pour les étudiants dans un nouveau fichier <strong>Etudiant.js</strong> :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">const</span> etudiantSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+  <span class="hljs-attr">nom</span>: <span class="hljs-built_in">String</span>,
+  <span class="hljs-attr">prenom</span>: <span class="hljs-built_in">String</span>,
+  <span class="hljs-attr">classe</span>: <span class="hljs-built_in">String</span>
+});
+
+<span class="hljs-built_in">module</span>.exports = mongoose.model(<span class="hljs-string">'Etudiant'</span>, etudiantSchema);
+</div></code></pre>
+<ul>
+<li>Ajouter une route API dans le <strong>server.js</strong> pour récupérer les étudiants :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> Etudiant = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Etudiant'</span>);
+
+<span class="hljs-comment">// Route pour récupérer tous les étudiants</span>
+app.get(<span class="hljs-string">'/etudiants'</span>, <span class="hljs-keyword">async</span> (req, res) =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">const</span> etudiants = <span class="hljs-keyword">await</span> Etudiant.find();
+    res.json(etudiants);
+  } <span class="hljs-keyword">catch</span> (error) {
+    res.status(<span class="hljs-number">500</span>).json({ <span class="hljs-attr">message</span>: error.message });
+  }
+});
+</div></code></pre>
+<ul>
+<li>Lancer le serveur node avec la commande suivante :</li>
+</ul>
+<pre class="hljs"><code><div>node server.js
+</div></code></pre>
+<h2 id="partie-4--interface-utilisateur">Partie 4 : Interface Utilisateur</h2>
+<h3 id="cr%C3%A9ation-de-linterface-utilisateur">Création de l'interface utilisateur</h3>
+<ul>
+<li>
+<p>Ouvrir le projet Angular <strong>ecole-app</strong>, et y génerer un nouveau composant etudiants</p>
+</li>
+<li>
+<p>Modifier le fichier <strong>etudiants.component.html</strong> pour y ajotuer un template de base pour afficher les étudiants, par exemple :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Liste des Étudiants<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> *<span class="hljs-attr">ngFor</span>=<span class="hljs-string">"let etudiant of etudiants"</span>&gt;</span>
+    {{ etudiant.nom }} {{ etudiant.prenom }} - Classe: {{ etudiant.classe }}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</div></code></pre>
+<h3 id="r%C3%A9cup%C3%A9ration-des-donn%C3%A9es-via-httpclient">Récupération des données via HttpClient</h3>
+<ul>
+<li>Modifier le service <strong>EtudiantService</strong>(etudiant.service.ts) pour ajouter une méthode de récupération des étudiants :</li>
+</ul>
+<pre class="hljs"><code><div>getEtudiants() {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.http.get(<span class="hljs-string">'http://localhost:3000/etudiants'</span>);
+}
+</div></code></pre>
+<ul>
+<li>Injecter <strong>EtudiantService</strong> dans <strong>EtudiantsComponent</strong> et appeler la méthode <strong>getEtudiants()</strong> pour récupérer les données :</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Component, OnInit } <span class="hljs-keyword">from</span> <span class="hljs-string">'@angular/core'</span>;
+<span class="hljs-keyword">import</span> { EtudiantService } <span class="hljs-keyword">from</span> <span class="hljs-string">'../etudiant.service'</span>;
+
+<span class="hljs-meta">@Component</span>({
+ <span class="hljs-comment">// ...</span>
+})
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> EtudiantsComponent <span class="hljs-keyword">implements</span> OnInit {
+ etudiants: <span class="hljs-built_in">any</span> = [];
+
+ <span class="hljs-keyword">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> etudiantService: EtudiantService</span>) { }
+
+ ngOnInit() {
+   <span class="hljs-keyword">this</span>.etudiantService.getEtudiants().subscribe(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+     <span class="hljs-keyword">this</span>.etudiants = data;
+   });
+ }
+}
+</div></code></pre>
+<ul>
+<li>Démarrer le serveur backend (Node.js) si ce n'est pas déjà fait :</li>
+</ul>
+<pre class="hljs"><code><div>node server.js
+</div></code></pre>
+<ul>
+<li>Exécuter l'application Angular, et vérifier le bon affichage des étudiants dans l'interface.</li>
+</ul>
+<h2 id="correction-erreur-xmlhttprequest">Correction erreur XMLHttpRequest</h2>
+<p><em>Si aucun résultat s'affiche sur votre application Angular, et que vous avez l'erreur suivante dans votre console de navigateur :
+Access to XMLHttpRequest at 'http://localhost:3000/etudiants' from origin 'http://localhost:4200' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource
+, suivez la procédure suivante :</em></p>
+<p>L'erreur survient car votre navigateur bloque la connexion entre votre application Angular et votre application backend par mesure de sécurité.
+Nous allons donc mettre en place un proxy sur notre application Angular, pour que cette dernière récupère les données de l'API sur la même URL.</p>
+<p>Pour cela :</p>
+<ul>
+<li>
+<p>Créer un fichier de configuration de proxy à la racine de votre projet Angular <strong>proxy.conf.json</strong></p>
+</li>
+<li>
+<p>Ajouter la configuration du proxy :</p>
+</li>
+</ul>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"/api/*"</span>: {
+    <span class="hljs-attr">"target"</span>: <span class="hljs-string">"http://localhost:3000"</span>,
+    <span class="hljs-attr">"secure"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"logLevel"</span>: <span class="hljs-string">"debug"</span>,
+    <span class="hljs-attr">"changeOrigin"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"pathRewrite"</span>: {<span class="hljs-attr">"^/api"</span> : <span class="hljs-string">""</span>}
+  }
+}
+</div></code></pre>
+<ul>
+<li>Modifier votre application Angular pour utiliser le proxy :</li>
+</ul>
+<p>Modifiez chaques requêtes HTTP pour utiliser l'URL /api généré par votre proxy.
+Par exemple, <strong>http://localhost:3000/etudiants</strong> deviendra <strong>/api/etudiants</strong></p>
+<ul>
+<li>Enfin, relancer l'application Angular avec la configuration du proxy</li>
+</ul>
+<pre class="hljs"><code><div>ng serve --proxy-config proxy.conf.json
+</div></code></pre>
+<h1 id="partie-5---questions-suppl%C3%A9mentaires">Partie 5 - Questions supplémentaires</h1>
+<ul>
+<li>
+<p>Créer des routes API supplémentaires dans le backend Node.js pour supporter les opérations CRUD (Create, Read, Update, Delete) sur les étudiants.</p>
+</li>
+<li>
+<p>Étendre le service Angular pour inclure des méthodes permettant d'ajouter, modifier et supprimer des étudiants.</p>
+</li>
+<li>
+<p>Mettre à jour l'interface utilisateur pour permettre aux utilisateurs d'effectuer ces opérations.</p>
+</li>
+</ul>
+
+</body>
+</html>

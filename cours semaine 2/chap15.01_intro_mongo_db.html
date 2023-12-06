@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>chap15.01_intro_mongo_db.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="mongodb--introduction--pr%C3%A9sentation">MongoDB : Introduction &amp; Présentation</h1>
+<p>MongoDB est une base de données NoSQL (Not Only SQL) crée en 2007, mature et orientée document (fichier BJSON).</p>
+<p>MongoDB est un DSL (Domain-Specific Language), il n'utilise pas le paradigme SQL, mais un langage original dédié à l'interrogation des données.</p>
+<p>Il est adapté au stockage de données <strong>massives</strong> qui peuvent varier dans le temps, son DSL est puissant et permet d'interroger les données facilement. Notez que lorsque la structure des données est connues au préalable et ne bouge pas dans le temps on utilisera de préférence du SQL.</p>
+<p>Dans un projet d'application Web vous serez amené à travailler avec les <strong>deux</strong> paradigmes SQL et NoSQL, par exemple MySQL et MongoDB.</p>
+<p>Enfin, MongoDB propose un ensemble important de drivers pour les langages comme PHP, JS, Python, ... Comme par exemple MySQL.</p>
+<h2 id="document-et-collection">Document et collection</h2>
+<p>Dans une base de données MongoDB vous manipulerez des <strong>documents</strong>, fichiers semi-structurés BJSON dont les propriétés sont typées. BJSON est un <strong>binaire</strong> qui permet d'interroger les données plus rapidement.</p>
+<p>Les documents sont stockés dans une collection qui se trouve dans une base de données sur un serveur MongoDB.</p>
+<h2 id="mod%C3%A9lisation-des-donn%C3%A9es">Modélisation des données</h2>
+<p>MongoDB ne gère <strong>aucun schéma de données</strong> il est orienté flexibilité, les collections n'ont donc pas de structure pré-déterminée ou fixe, elles peuvent donc <strong>évoluer dans le temps</strong>. Dans un document, des champs peuvent être ajoutés, supprimés, modifiés et renommés à tout moment ...</p>
+<p>Le modèle des documents est basé sur un système de <strong>clés/valeurs</strong>. Chaque valeur peut être de type scalaire, c'est-à-dire des numériques, chaîne de caractères, boléens ou la valeur particulière <code>null</code>. Ces valeurs peuvent également comporter des listes de valeurs ou même des documents imbriqués.</p>
+<p>Ci-dessous un exemple représentant une collection de 2 documents :</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-comment">// Collection</span>
+  <span class="hljs-attr">"pastries"</span>: [
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1"</span>,
+      <span class="hljs-attr">"ref"</span>: <span class="hljs-string">"Pâtisserie"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Fondant supreme"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Voluptate mollit consectetur pariatur labore. Quis amet quis minim nulla voluptate amet nisi. Ut sint veniam magna aute velit minim laborum eiusmod mollit dolor laborum. Minim Lorem Lorem pariatur adipisicing laborum tempor consequat est officia proident. Qui consequat duis ipsum minim Lorem cillum in excepteur.\r\n"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://media.istockphoto.com/photos/confectioner-decorating-chocolate-cake-closeup-picture-id1187830875?s=612x612"</span>,
+      <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"order"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"sucré"</span>, <span class="hljs-string">"yummy"</span>, <span class="hljs-string">"dessert"</span>],
+      <span class="hljs-attr">"like"</span>: <span class="hljs-string">"Much"</span>
+    },
+    {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"2"</span>,
+      <span class="hljs-attr">"ref"</span>: <span class="hljs-string">"Pâtisserie"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Cake tout Chocolat"</span>,
+      <span class="hljs-attr">"description"</span>: <span class="hljs-string">"Magna laborum quis qui deserunt id. Aute sint consequat aliquip minim duis tempor reprehenderit laborum pariatur ut anim culpa. Laboris sit ea cillum ex nostrud deserunt. Nulla deserunt exercitation non eu ipsum. Cillum ut irure et ea esse ea anim nostrud proident. Non incididunt ut velit pariatur. Occaecat qui fugiat cupidatat est pariatur irure sunt excepteur anim.\r\n"</span>,
+      <span class="hljs-attr">"url"</span>: <span class="hljs-string">"https://media.istockphoto.com/photos/confectioner-decorating-chocolate-cake-closeup-picture-id1187830875?s=612x612"</span>,
+      <span class="hljs-attr">"quantity"</span>: <span class="hljs-number">10</span>,
+      <span class="hljs-attr">"order"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"tags"</span>: [<span class="hljs-string">"sucré"</span>, <span class="hljs-string">"yummy"</span>, <span class="hljs-string">"dessert"</span>, <span class="hljs-string">"chocolat"</span>],
+      <span class="hljs-attr">"like"</span>: <span class="hljs-string">"Much"</span>
+    }
+  ]
+}
+</div></code></pre>
+<p>Remarque : chaque document possède obligatoirement une clé unique <code>_id</code>, le type de cette propriété est par défaut <strong>ObjectId</strong>, mais peut être de n'importe <strong>quel type scalaire</strong>. La valeur de ce champ doit cependant <strong>être unique</strong> dans le document et bien sûr non mutable. Vous ne pouvez pas définir par exemple cette clé avec un array ou un objet qui sont des valeurs mutables.</p>
+<h2 id="installation-de-mongodb">Installation de MongoDB</h2>
+<p>Vous pouvez installer MongoDB en utilisant l'installeur officiel <strong>MongoDB Community Server</strong> :</p>
+<p>https://www.mongodb.com/try/download/community</p>
+<p><strong>ATTENTION</strong> : Veillez à choisir l'installation <strong>Custom</strong> et non complète, puis choisissez <strong>et notez</strong> l'emplacement des fichiers et dossiers de Mongo dans votre système (par défaut : <code>C:\Program Files\MongoDB\Server\</code>).
+Choisissez l'installation de MongoD en tant que Service, et <strong>n'installez pas MongoDB Compass</strong> : c'est une interface graphique pour Mongo qui peut être installée séparament. Mais nous utiliserons la ligne de commande pour dialoguer avec Mongo dans ce cours.</p>
+<p>Mongo dispose de 2 éléments :</p>
+<ul>
+<li>Le serveur de base de données (<code>mongod.exe</code>).</li>
+<li>Le client (<code>mongo.exe</code>) pour se connecter au serveur.</li>
+</ul>
+<p>Comme vous avez installé MongoD en tant que Service, vous n'aurez pas besoin de lancer manuellement le serveur 👍.</p>
+<h4 id="mongo-sh">Mongo SH</h4>
+<p>Le programme Mongo Shell (<code>mongosh.exe</code>) est une version modernisée du CLI installé par défaut avec MongoDB (<code>mongo.exe</code>).</p>
+<p><a href="https://www.mongodb.com/try/download/shell">Installer Mongo Shell</a></p>
+<h3 id="2-connectez-vous-%C3%A0-mongodb">2. Connectez-vous à MongoDB</h3>
+<p>Ouvrez un terminal et connectez-vous à votre serveur MongoDB :</p>
+<pre class="hljs"><code><div>mongosh
+</div></code></pre>
+<h2 id="exemples-de-commandes-mongodb">Exemples de commandes MongoDB</h2>
+<p>Une fois connecté sur votre serveur MongoDB, vous avez accès aux commandes CLI (Command Line Interface). Si vous souhaitez quitter le CLI, vous taperez dans MongoDB :</p>
+<pre class="hljs"><code><div>quit()  <span class="hljs-comment"># équivalent : exit</span>
+</div></code></pre>
+<p>Dans le CLI sur le serveur MongoDB, vous avez accès aux commandes de base suivantes :</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Affichez les bases de données</span>
+show dbs
+
+<span class="hljs-comment">// Connexion et/ou création d'une base de données "restaurants"</span>
+use restaurants
+
+<span class="hljs-comment">// Connaitre le nom de la base de données sur laquelle on est connecté</span>
+db
+
+<span class="hljs-comment">// Créer une collection vide "addresses"</span>
+db.createCollection(<span class="hljs-string">'addresses'</span>)
+
+<span class="hljs-comment">// Voir les collections existantes de la 'db'</span>
+show collections
+
+<span class="hljs-comment">// Insérer un document dans une collection</span>
+db.addresses.insertOne(
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'Indiana Coffee'</span>,
+    <span class="hljs-attr">location</span>: <span class="hljs-string">'4th Baker Street, London'</span>
+  }
+)
+
+<span class="hljs-comment">// Voir la liste des documents dans une collection</span>
+db.addresses.find()
+
+<span class="hljs-comment">// Renommer une collection "addresses" en "address"</span>
+db.addresses.renameCollection(<span class="hljs-string">"address"</span>)
+
+<span class="hljs-comment">// ex: Supprimer l'ensemble des documents dans une collection</span>
+db.address.deleteMany({})
+
+<span class="hljs-comment">// Supprimer physiquement une collection</span>
+db.address.drop()
+
+<span class="hljs-comment">// Supprimer la base de données actuelle</span>
+<span class="hljs-comment">//  ⚠ Cela supprimera également toutes les collections dans cette base !</span>
+db.dropDatabase()
+
+
+<span class="hljs-comment">// Efface la console</span>
+cls
+</div></code></pre>
+<h1 id="mongoose--odm-object-document-mapping">Mongoose : ODM Object Document Mapping</h1>
+<p>Nous allons aborder MongoDB en utilisant une couche d'abstraction (mongoose) pour l'intégrer dans Express.</p>
+<p>Mongoose utilise les Promesses JS. Nous utiliserons par la suite la syntaxe <code>async/await</code> de JavaScript pour manipuler ces promesses.</p>
+<h2 id="mongoose--installation">Mongoose : Installation</h2>
+<pre class="hljs"><code><div><span class="hljs-comment"># Initialisation du projet</span>
+npm init -y
+
+<span class="hljs-comment"># Installation du ODM</span>
+npm install mongoose --save
+</div></code></pre>
+<h2 id="query">Query</h2>
+<p>Vous bénéficiez de toute la syntaxe de MongoDB pour effectuer des requêtes. Par exemple si l'on souhaite récupérer uniquement les produits dont la quantité est supérieure ou égale à 100 on écrira :</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> companiesHighStock = <span class="hljs-keyword">await</span> ProductModel.find({ <span class="hljs-attr">qty</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-number">100</span> } });
+</div></code></pre>
+<p>Rappels de syntaxe MongoDB.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// plus grand que</span>
+$gt, $gte;
+
+<span class="hljs-comment">// Plus petit que</span>
+$lt, $lte;
+
+<span class="hljs-comment">// collection inventory  quantité &lt; 20</span>
+db.inventory.find({ <span class="hljs-attr">quantity</span>: { <span class="hljs-attr">$lt</span>: <span class="hljs-number">20</span> } });
+</div></code></pre>
+<p>D'autres filtres :</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// différent de</span>
+$ne
+<span class="hljs-string">"number"</span> : {<span class="hljs-string">"$ne"</span> : <span class="hljs-number">10</span>}
+
+<span class="hljs-comment">// fait partie de ...</span>
+$<span class="hljs-keyword">in</span>, $nin
+<span class="hljs-string">"notes"</span> : {<span class="hljs-string">"$in"</span> : [<span class="hljs-number">10</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">18</span>] }
+<span class="hljs-string">"notes"</span> : {<span class="hljs-string">"$nin"</span> : [<span class="hljs-number">10</span>, <span class="hljs-number">12</span>, <span class="hljs-number">15</span>, <span class="hljs-number">18</span>] }
+
+<span class="hljs-comment">// Ou</span>
+$or
+<span class="hljs-string">"$or"</span> : [
+  { <span class="hljs-string">"notes"</span> : { <span class="hljs-string">"$gt"</span> : <span class="hljs-number">10</span> } },
+  { <span class="hljs-string">"notes"</span> : { <span class="hljs-string">"$lt"</span> : <span class="hljs-number">5</span>  } }
+]
+<span class="hljs-comment">// and</span>
+$and
+<span class="hljs-string">"$and"</span> : [
+  { <span class="hljs-string">"notes"</span> : { <span class="hljs-string">"$gt"</span> : <span class="hljs-number">10</span> } },
+  { <span class="hljs-string">"notes"</span> : { <span class="hljs-string">"$lt"</span> : <span class="hljs-number">5</span>  } }
+]
+
+<span class="hljs-comment">// négation</span>
+$not
+<span class="hljs-string">"notes"</span> : {<span class="hljs-string">"$not"</span> : {<span class="hljs-string">"$lt"</span> : <span class="hljs-number">10</span>} }
+
+<span class="hljs-comment">// existe</span>
+$exists
+<span class="hljs-string">"notes"</span> : {<span class="hljs-string">"$exists"</span> : <span class="hljs-literal">true</span>}
+
+<span class="hljs-comment">// tous les documents qui possède(nt) la propriété level</span>
+db.inventory.find( { <span class="hljs-attr">level</span> : { <span class="hljs-attr">$exists</span>: <span class="hljs-literal">true</span> } } )
+
+<span class="hljs-comment">// tous les documents qui ne possède(nt) pas la propriété level</span>
+db.inventory.find( { <span class="hljs-attr">level</span> : { <span class="hljs-attr">$exists</span>: <span class="hljs-literal">false</span> } } )
+
+<span class="hljs-comment">// test sur la taille d'une liste</span>
+$size
+<span class="hljs-string">"notes"</span> : {<span class="hljs-string">"$size"</span> : <span class="hljs-number">4</span>}
+
+<span class="hljs-comment">// element match</span>
+
+{ <span class="hljs-string">"content"</span>: { <span class="hljs-attr">$elemMatch</span>: { <span class="hljs-string">"name"</span>: <span class="hljs-string">"Turing Award"</span>, <span class="hljs-string">"year"</span>: { <span class="hljs-attr">$gt</span>: <span class="hljs-number">1980</span> } } } }
+
+<span class="hljs-comment">// recherche avec une Regex simple</span>
+$regex
+{ <span class="hljs-string">"name"</span>: <span class="hljs-regexp">/^A/</span>  }
+
+</div></code></pre>
+<p>Vous pouvez également ordonner les résultats en fonction d'un champ du document avec 1 et -1 pour respectivement croissant et décroissant.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> ProductModel.find({ <span class="hljs-attr">qty</span>: { <span class="hljs-attr">$gte</span>: <span class="hljs-number">20</span> } }).sort({ <span class="hljs-attr">qty</span>: <span class="hljs-number">-1</span> }); <span class="hljs-comment">// Par ordre de quantité décroissant</span>
+</div></code></pre>
+<h2 id="mise-%C3%A0-jour">Mise à jour</h2>
+<p>Les méthodes de modification vous permettent facilement de mettre à jour les documents :</p>
+<p>Exemples :</p>
+<ol>
+<li>Update unique : ne modifie que le 1er document trouvé qui correspond à la requête</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> ProductModel.updateOne({ <span class="hljs-attr">society</span>: <span class="hljs-string">"Alex"</span> }, { <span class="hljs-attr">$set</span>: { <span class="hljs-attr">qty</span>: <span class="hljs-number">1000</span> } });
+</div></code></pre>
+<ol start="2">
+<li>Update multiple : modifie TOUS les documents trouvés qui correspondent à la requête</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-keyword">await</span> ProductModel.updateMany({ <span class="hljs-attr">qty</span>: <span class="hljs-number">100</span> }, { <span class="hljs-attr">$set</span>: { <span class="hljs-attr">qty</span>: <span class="hljs-number">200</span> } });
+</div></code></pre>
+<h2 id="suppression">Suppression</h2>
+<p>Les modèles Mongoose disposent également des méthodes de suppression :</p>
+<pre class="hljs"><code><div>ProductModel.deleteOne({ <span class="hljs-attr">name</span>: <span class="hljs-string">"Alex"</span> }); <span class="hljs-comment">// Supprime le 1er document trouvé</span>
+
+ProductModel.deleteMany({ <span class="hljs-attr">name</span>: <span class="hljs-string">"Alex"</span> }); <span class="hljs-comment">// Supprime TOUS les documents trouvés</span>
+</div></code></pre>
+<hr>
+
+</body>
+</html>
