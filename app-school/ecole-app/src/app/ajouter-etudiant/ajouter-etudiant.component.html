@@ -1,0 +1,18 @@
+<p>ajouter-etudiant works!</p>
+<h2>Ajouter un Étudiant</h2>
+
+<form (submit)="ajouterEtudiant()">
+  <div>
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" [(ngModel)]="nouvelEtudiant.lastname" name="nom">
+  </div>
+  <div>
+    <label for="prenom">Prénom :</label>
+    <input type="text" id="prenom" [(ngModel)]="nouvelEtudiant.firstname" name="prenom">
+  </div>
+  <div>
+    <label for="classe">Classe :</label>
+    <input type="text" id="classe" [(ngModel)]="nouvelEtudiant.schoolclass" name="classe">
+  </div>
+  <button type="submit">Ajouter</button>
+</form>

@@ -20,5 +20,12 @@ export class EtudiantService {
     return this.http.delete<any>(url);
   }
 
+  updateEtudiant(etudiant: Etudiant): Observable<Etudiant> {
+    const url = `${this.apiUrl}/${etudiant._id}`;
+    return this.http.put<Etudiant>(url, etudiant);
+  }
 
+  addEtudiant(etudiant: Etudiant): Observable<Etudiant> {
+    return this.http.post<Etudiant>(this.apiUrl, etudiant);
+  }
 }

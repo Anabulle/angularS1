@@ -37,12 +37,11 @@ app.post('/etudiants', async (req, res) => {
 
   try {
     const newEtudiant = await etudiant.save();
-    res.status(201).json(newEtudiant);
+    res.status(201).json(newEtudiant); // Renvoyer l'objet nouvellement créé
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 });
-
 // Route pour récupérer un étudiant par son ID
 app.get('/etudiants/:id', getEtudiant, (req, res) => {
   res.json(res.etudiant);
@@ -87,7 +86,7 @@ app.put('/etudiants/:id', getEtudiant, async (req, res) => {
 // Route pour supprimer un étudiant
 app.delete('/etudiants/:id', getEtudiant, async (req, res) => {
   try {
-    await res.etudiant.remove();
+    await res.etudiant.deleteOne();
     res.json({ message: 'Étudiant supprimé' });
   } catch (error) {
     res.status(500).json({ message: error.message });
