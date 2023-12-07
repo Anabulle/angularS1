@@ -12,6 +12,7 @@ import { PastryTagColorPipe } from './pastry-tag-color.pipe';
 import { SearchComponent } from './search/search.component';
 import { LoginComponent } from './login/login.component';
 import { PaginateComponent } from './paginate/paginate.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PaginateComponent } from './paginate/paginate.component';
     PastryTagColorPipe,
     SearchComponent,
     LoginComponent,
-    PaginateComponent
+    PaginateComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

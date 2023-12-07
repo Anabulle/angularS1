@@ -1,1 +1,17 @@
-<p>login works!</p>
+<!-- login.component.html -->
+
+<h2>Connexion</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Nom d'utilisateur :</label>
+    <input type="text" id="username" name="username" [(ngModel)]="username">
+  </div>
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" [(ngModel)]="password">
+  </div>
+  <button type="submit">Se connecter</button>
+</form>
+
+<p *ngIf="loginFailed" style="color: red;">Nom d'utilisateur ou mot de passe incorrect.</p>
