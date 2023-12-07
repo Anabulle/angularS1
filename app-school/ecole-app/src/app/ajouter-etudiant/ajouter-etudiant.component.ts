@@ -13,16 +13,14 @@ export class AjouterEtudiantComponent {
   constructor(private etudiantService: EtudiantService) { }
 
   ajouterEtudiant() {
-    this.etudiantService.addEtudiant(this.nouvelEtudiant).subscribe(
-      (response) => {
-        console.log('Étudiant ajouté avec succès', response);
-        // Réinitialiser les champs du formulaire ou effectuer d'autres actions nécessaires après l'ajout
-        this.nouvelEtudiant = new Etudiant('', '', '');
+    this.etudiantService.addEtudiant(this.nouvelEtudiant).subscribe({
+      next: (response: Etudiant) => {
+        console.log( response);
+        this.nouvelEtudiant = new Etudiant('', '', '')
       },
-      (error) => {
+      error: (error: any) => {
         console.error('Erreur lors de l\'ajout de l\'étudiant', error);
-        // Gérer les erreurs ici
       }
-    );
+    });
   }
 }

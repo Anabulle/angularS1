@@ -1,12 +1,12 @@
 export class Etudiant {
-    _id?: string; 
-    firstname: string;
-    lastname: string;
-    schoolclass: string;
-  
-    constructor(firstname: string, lastname: string, schoolclass: string) {
-      this.firstname = firstname;
-      this.lastname = lastname;
-      this.schoolclass = schoolclass;
-    }
+  _id?: string;
+  nom: string;
+  prenom: string;
+  classe: string;
+
+  constructor(nom: string, prenom: string, classe: string) {
+    this.nom = nom;
+    this.prenom = prenom;
+    this.classe = classe;
   }
+}

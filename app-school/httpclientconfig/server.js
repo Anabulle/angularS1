@@ -28,16 +28,20 @@ app.get('/etudiants', async (req, res) => {
 });
 
 // Route pour créer un nouvel étudiant
+const Etudiant = require('./models/Etudiant'); 
+
 app.post('/etudiants', async (req, res) => {
-  const etudiant = new Etudiant({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    schoolclass: req.body.schoolclass
+  const { nom, prenom, classe } = req.body;
+
+  const nouvelEtudiant = new Etudiant({
+    nom,
+    prenom,
+    classe
   });
 
   try {
-    const newEtudiant = await etudiant.save();
-    res.status(201).json(newEtudiant); // Renvoyer l'objet nouvellement créé
+    const savedEtudiant = await nouvelEtudiant.save();
+    res.status(201).json(savedEtudiant); // Renvoyer l'objet nouvellement créé
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
