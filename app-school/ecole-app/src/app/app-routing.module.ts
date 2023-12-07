@@ -4,7 +4,7 @@ import { ModifierEtudiantComponent } from './modifier-etudiant/modifier-etudiant
 import { EtudiantsComponent } from './etudiants/etudiants.component';
 
 const routes: Routes = [
-  { path: '', component: EtudiantsComponent }, // Route par défaut pour afficher la liste des étudiants
+  { path: '', component: EtudiantsComponent }, 
   { path: 'modifier-etudiant/:id', component: ModifierEtudiantComponent },
   // ... Autres routes pour vos composants
 ];
