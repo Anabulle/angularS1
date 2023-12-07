@@ -6,7 +6,6 @@ import { EtudiantsComponent } from './etudiants/etudiants.component';
 const routes: Routes = [
   { path: '', component: EtudiantsComponent }, 
   { path: 'modifier-etudiant/:id', component: ModifierEtudiantComponent },
-  // ... Autres routes pour vos composants
 ];
 
 @NgModule({
