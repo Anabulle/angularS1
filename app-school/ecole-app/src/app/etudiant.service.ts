@@ -28,4 +28,9 @@ export class EtudiantService {
   addEtudiant(etudiant: Etudiant): Observable<Etudiant> {
     return this.http.post<Etudiant>(this.apiUrl, etudiant);
   }
+
+  getEtudiantById(etudiantId: string): Observable<Etudiant> {
+    const url = `${this.apiUrl}/${etudiantId}`;
+    return this.http.get<Etudiant>(url);
+  }
 }

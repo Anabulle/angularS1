@@ -3,6 +3,6 @@
   <li *ngFor="let etudiant of etudiants">
     {{ etudiant.nom }} {{ etudiant.prenom }} - Classe: {{ etudiant.classe }}
     <button (click)="supprimerEtudiant(etudiant._id)">Supprimer</button>
-    <button>Modifier</button>
+    <a [routerLink]="['/modifier-etudiant', etudiant._id]">Modifier</a>
   </li>
 </ul>

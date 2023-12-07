@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 // Connexion à MongoDB
-mongoose.connect('mongodb://localhost/ecole', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Middleware pour parser le JSON
 app.use(express.json());
@@ -27,8 +27,6 @@ app.get('/etudiants', async (req, res) => {
   }
 });
 
-// Route pour créer un nouvel étudiant
-const Etudiant = require('./models/Etudiant'); 
 
 app.post('/etudiants', async (req, res) => {
   const { nom, prenom, classe } = req.body;

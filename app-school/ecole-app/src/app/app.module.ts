@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EtudiantsComponent } from './etudiants/etudiants.component';
 import { AjouterEtudiantComponent } from './ajouter-etudiant/ajouter-etudiant.component';
+import { ModifierEtudiantComponent } from './modifier-etudiant/modifier-etudiant.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EtudiantsComponent,
-    AjouterEtudiantComponent
+    AjouterEtudiantComponent,
+    ModifierEtudiantComponent
   ],
   imports: [
     BrowserModule,
