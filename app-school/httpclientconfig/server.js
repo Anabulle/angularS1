@@ -67,14 +67,14 @@ async function getEtudiant(req, res, next) {
 
 // Route pour mettre à jour un étudiant
 app.put('/etudiants/:id', getEtudiant, async (req, res) => {
-  if (req.body.firstname != null) {
-    res.etudiant.firstname = req.body.firstname;
+  if (req.body.nom != null) {
+    res.etudiant.nom = req.body.nom;
   }
-  if (req.body.lastname != null) {
-    res.etudiant.lastname = req.body.lastname;
+  if (req.body.prenom != null) {
+    res.etudiant.prenom = req.body.prenom;
   }
-  if (req.body.schoolclass != null) {
-    res.etudiant.schoolclass = req.body.schoolclass;
+  if (req.body.classe != null) {
+    res.etudiant.classe = req.body.classe;
   }
 
   try {
