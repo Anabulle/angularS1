@@ -19,7 +19,7 @@ export class AjouterEtudiantComponent {
   ajouterEtudiant() {
     this.etudiantService.addEtudiant(this.nouvelEtudiant).subscribe({
       next: (response: Etudiant) => {
-        console.log('Étudiant ajouté avec succès', response);
+        console.log(this.nouvelEtudiant, response);
         this.nouvelEtudiant = { nom: '', prenom: '', classe: '' }; 
       },
       error: (error: any) => {
