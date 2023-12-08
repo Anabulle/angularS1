@@ -1,40 +1,29 @@
 <div class="container-fuild principal">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="#"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
-                        Se connecter
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
+        <!-- ... Vos autres éléments ... -->
 
-                <li *ngIf="authService.isLoggedIn()">
-                    <a class="nav-link" (click)="logout()" routerLinkActive="active">
-                        Se déconnecter
-                    </a>
-                </li>
-                <li *ngIf="!authService.isLoggedIn()">
-                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
-                        Se connecter
-                    </a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0 d-inline-flex">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 m-4" type="submit">Search</button>
-            </form>
-        </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active" [@colorChange]="currentStates['connecter']" (click)="toggleState('connecter')">
+                <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                    Se connecter
+                </a>
+            </li>
+            <li class="nav-item active" [@colorChange]="currentStates['home']" (click)="toggleState('home')">
+                <a class="nav-link" routerLink="/pastries" href="#">
+                    Home
+                </a>
+            </li>
+            <li *ngIf="authService.isLoggedIn()" class="nav-item" [@colorChange]="currentStates['deconnecter']"
+                (click)="toggleState('deconnecter')">
+                <a class="nav-link" (click)="logout()" routerLinkActive="active">
+                    Se déconnecter
+                </a>
+            </li>
+        </ul>
+
+        <!-- ... Vos autres éléments ... -->
     </nav>
+
 </div><!-- .pastrie -->
 <div class="container-fuild principal">
     <nav class="navbar navbar-expand-lg navbar-light">
