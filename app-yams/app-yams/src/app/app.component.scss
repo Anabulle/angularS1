@@ -1,11 +1,5 @@
 
-/* styles.css ou votre fichier CSS dédié */
-.text-animation {
-    color: black; /* Couleur par défaut */
-    transition: color 0.5s ease; /* Transition de couleur pendant 0.5s */
-  }
-  
-  .text-animation.active {
-    color: red; /* Couleur lorsque l'élément est dans l'état 'active' */
-  }
+.color a{
+    color: white;
+}
   

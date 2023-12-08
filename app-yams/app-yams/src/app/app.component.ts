@@ -9,10 +9,13 @@ import { AuthService } from './auth.service';
   animations: [
     trigger('colorChange', [
       state('active', style({
-        color: 'red'
+        backgroundColor: '#7913bd',
+        borderRadius: '10px',
+        color: 'white'
       })),
       state('inactive', style({
-        color: 'black'
+        backgroundColor: 'white', 
+        borderRadius: '10px' 
       })),
       transition('active <=> inactive', [
         animate('0.5s')
@@ -43,8 +46,11 @@ export class AppComponent implements OnInit {
   }
 
   toggleState(item: string): void {
-    if (this.currentStates.hasOwnProperty(item)) {
-      this.currentStates[item] = this.currentStates[item] === 'active' ? 'inactive' : 'active';
+    for (const stateItem in this.currentStates) {
+      if (this.currentStates.hasOwnProperty(stateItem) && stateItem !== item) {
+        this.currentStates[stateItem] = 'inactive';
+      }
     }
+    this.currentStates[item] = this.currentStates[item] === 'active' ? 'inactive' : 'active';
   }
 }
