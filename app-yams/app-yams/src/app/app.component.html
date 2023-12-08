@@ -19,10 +19,14 @@
                 </li>
 
                 <li *ngIf="authService.isLoggedIn()">
-                    <a (click)="logout()">Logout</a>
+                    <a class="nav-link" (click)="logout()" routerLinkActive="active">
+                        Se déconnecter
+                    </a>
                 </li>
                 <li *ngIf="!authService.isLoggedIn()">
-                    <a routerLink="/login">Login</a>
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                        Se connecter
+                    </a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 d-inline-flex">
